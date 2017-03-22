@@ -37,7 +37,7 @@ public class Bender {
                         lletra = whereGo(this.xpos, this.itocada);
                         sb.append(move(ipos, lletra));
                     }
-                    itocada = true;
+                    this.itocada = true;
                 }
                 if (tpos[0] > 0) {
                     if (!itocada) {
@@ -122,25 +122,20 @@ public class Bender {
             posicio[0]--;
             return posicio;
         }
-        if (lletra == 'W'){
-            posicio[1]--;
-            return posicio;
-        }
+        posicio[1]--;
         return posicio;
     }
 
     private char whereGo (int [] robot, boolean tocat) {
-        int pos1 = robot[0];
-        int pos2 = robot[1];
-        if (tocat == false) {
-            if (this.mapa[pos1 + 1][robot[1]] != '#') return 'S';
-            if (this.mapa[robot[0]][pos2 + 1] != '#') return 'E';
-            if (this.mapa[pos1 - 1][robot[1]] != '#') return 'N';
+        if (!tocat) {
+            if (this.mapa[robot[0] + 1][robot[1]] != '#') return 'S';
+            if (this.mapa[robot[0]][robot[1] + 1] != '#') return 'E';
+            if (this.mapa[robot[0] - 1][robot[1]] != '#') return 'N';
             return 'W';
         }
-        if (this.mapa[pos1 - 1][robot[1]] != '#') return 'N';
-        if (this.mapa[robot[0]][pos2 - 1] != '#') return 'W';
-        if (this.mapa[pos1 + 1][robot[1]] != '#') return 'S';
+        if (this.mapa[robot[0] - 1][robot[1]] != '#') return 'N';
+        if (this.mapa[robot[0]][robot[1] - 1] != '#') return 'W';
+        if (this.mapa[robot[0] + 1][robot[1]] != '#') return 'S';
         return 'E';
     }
 }

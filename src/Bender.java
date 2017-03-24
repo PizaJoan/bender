@@ -139,7 +139,35 @@ public class Bender {
     }
 
     public int bestRun() {
-
-        return 4;
+        int[][] ar = new int[this.mapa.length][this.mapa[0].length];
+        if (xpos[0] + 1 < this.mapa.length && this.mapa[xpos[0] + 1][xpos[1]] != '#') ar[xpos[0] + 1][xpos[1]] = 1;
+        if (xpos[1] + 1 < this.mapa[0].length && this.mapa[xpos[0]][xpos[1] + 1] != '#') ar[xpos[0]][xpos[1] + 1] = 1;
+        if (xpos[0] - 1 > 0 && this.mapa[xpos[0] - 1][xpos[1]] != '#') ar[xpos[0] - 1][xpos[1]] = 1;
+        if (xpos[1] - 1 > 0 && this.mapa[xpos[0]][xpos[1] - 1] != '#') ar[xpos[0]][xpos[1] - 1] = 1;
+        int contador = 1;
+        while (ar[dollaPos[0]][dollaPos[1]] == 0) {
+            tocarMapa(ar, contador);
+            contador++;
+        }
+        return ar[dollaPos[0]][dollaPos[1]];
     }
-}
+
+    private void tocarMapa(int[][] ar, int contador) {
+        int[] tes = getChar('T');
+        for (int i = 0; i < this.mapa.length; i++) {
+            for (int j = 0; j < this.mapa[0].length; j++) {
+                if (i == xpos[0] && j == xpos[1] || this.mapa[i][j] == '#') continue;
+                if (tes[0] > 0 && ar[tes[0]][tes[1]] > 0) {
+                        ar[tes[2]][tes[3]] = ar[i][j];
+                        tes[0] = 0;
+                } else {
+                        if (i + 1 < this.mapa.length && this.mapa[i][j] != '#' && this.mapa[i + 1][j] != '#' && ar[i][j] == contador) ar[i + 1][j] = ar[i][j] + 1;
+                        if (j + 1 < this.mapa[0].length && this.mapa[i][j] != '#' && this.mapa[i][j + 1] != '#' && ar[i][j] == contador) ar[i][j + 1] = ar[i][j] + 1;
+                        if (i - 1 > 0 && this.mapa[i][j] != '#' && this.mapa[i - 1][j] != '#' && ar[i][j] == contador) ar[i - 1][j] = ar[i][j] + 1;
+                        if (j - 1 > 0 && this.mapa[i][j] != '#' && this.mapa[i][j - 1] != '#' && ar[i][j] == contador) ar[i][j - 1] = ar[i][j] + 1;
+                    }
+                }
+
+            }
+        }
+    }

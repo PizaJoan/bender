@@ -66,7 +66,7 @@ public class BenderTest {
         Bender bender = new Bender(mapa);
         assertEquals("SEENNNNN", bender.run());
     }
-
+/*
 
     @Test
     public void test05() {
@@ -82,7 +82,7 @@ public class BenderTest {
         Bender bender = new Bender(mapa);
         assertEquals("SEEWWWW", bender.run());
     }
-
+*/
     @Test
     public void test06() {
         String mapa = "" +
